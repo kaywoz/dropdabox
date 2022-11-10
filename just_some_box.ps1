@@ -11,12 +11,12 @@ if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 #shoutout = expta
 
 #####var begins
-$ScriptName = 'W10GenericBox.ps1'
+$ScriptName = 'just_a_box.ps1'
 $ScriptPath = $MyInvocation.MyCommand.Path
 $CurrentUser = ($env:UserName)
 $CurrentHostname = ($env:ComputerName)
-$UserDirs = 'c:\apps', 'c:\tools\scripts', 'c:\tmp','c:\hyperv','c:\wsl'
-$DefenderExcludeDirs = 'c:\tmp','c:\hyperv','c:\wsl'
+$UserDirs = 'c:\custom\apps', 'c:\custom\tools\', 'c:\custom\scripts', 'c:\tmp', 'c:\custom\hyperv', 'c:\custom\wsl'
+$DefenderExcludeDirs = 'c:\custom\tools\', 'c:\custom\scripts'
 
 #$ScriptLocation = Split-Path $ScriptPath
 #$PSScriptRoot # - NOTUSED // the directory where the script exists, not the target directory the script is running in
@@ -320,7 +320,7 @@ Get-NetConnectionProfile | Where-Object {$_.NetworkCategory -eq "Public"} | Set-
 catch {
     Write-Warning -Message "WARNING: No need to set adapters ----> Skipping.";
 }
-
+    <#
 Write-Host "***Enabling PSremoting..."  -ForegroundColor Green
 Enable-PSRemoting -Force | Out-Null
 
@@ -379,6 +379,7 @@ DISM.exe /online /Cleanup-Image /StartComponentCleanup /ResetBase
 
 Write-Host "***Compacting non-essential and duplicate OS-files..."  -ForegroundColor Green
 Compact.exe /CompactOS:always
+#>
 
 Install-Module -Name PSWindowsUpdate -Force | Out-Null
 Write-Host "***installed PSWindowsUpdate..."  -ForegroundColor Green
