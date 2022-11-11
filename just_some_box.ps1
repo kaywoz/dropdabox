@@ -16,7 +16,7 @@ $ScriptPath = $MyInvocation.MyCommand.Path
 $CurrentUser = ($env:UserName)
 $CurrentHostname = ($env:ComputerName)
 $UserDirs = 'c:\custom\apps', 'c:\custom\tools\', 'c:\custom\scripts', 'c:\tmp', 'c:\custom\hyperv', 'c:\custom\wsl'
-$DefenderExcludeDirs = 'c:\custom\tools\', 'c:\custom\scripts'
+$DefenderExcludeDirs = 'c:\custom\tools\', 'c:\custom\scripts', 'C:\Users\$CurrentUser\OneDrive\4.tools'
 
 #$ScriptLocation = Split-Path $ScriptPath
 #$PSScriptRoot # - NOTUSED // the directory where the script exists, not the target directory the script is running in
@@ -293,7 +293,7 @@ Get-ChildItem C:\Users\Public\Desktop | Remove-Item
 Get-ChildItem C:\Users\$CurrentUser\Desktop | Remove-item
 Clear-RecycleBin -Force
 
-##6 windows options and tweaks
+##6 windows OS options and tweaks
 
 Write-Host "***Setting wallpaper...." -ForegroundColor Green
 (New-Object System.Net.WebClient).DownloadFile('https://git.io/JfYWM','c:\tools\scripts\Set-Wallpaper.ps1')
@@ -310,9 +310,6 @@ Write-Host "***Showing hidden files and such..."  -ForegroundColor Green
 # Show hidden files, Show protected OS files, Show file extensions
 Set-WindowsExplorerOptions -EnableShowHiddenFilesFoldersDrives -EnableShowProtectedOSFiles -EnableShowFileExtensions
 
-Write-Host "***Excluding dirs from WinDefender..."  -ForegroundColor Green
-Add-MpPreference -ExclusionPath $DefenderExcludeDirs
-
 Write-Host "***Setting Networks to Private"  -ForegroundColor Green
 try {
 Get-NetConnectionProfile | Where-Object {$_.NetworkCategory -eq "Public"} | Set-NetConnectionProfile -NetworkCategory Private
@@ -320,6 +317,18 @@ Get-NetConnectionProfile | Where-Object {$_.NetworkCategory -eq "Public"} | Set-
 catch {
     Write-Warning -Message "WARNING: No need to set adapters ----> Skipping.";
 }
+
+##7 windows Defender options and tweaks
+
+Add-MpPreference -ExclusionPath $DefenderExcludeDirs
+Write-Host "***excluding dirs from Defender..."  -ForegroundColor Green
+
+Add-MpPreference -ControlledFolderAccessProtectedFolders $DefenderExcludeDirs
+
+Add-MpPreference -ControlledFolderAccessAllowedApplications "<the app that should be allowed, including the path>"
+
+Add-MpPreference -ControlledFolderAccessAllowedApplications "c:\apps\test.exe"
+
     <#
 Write-Host "***Enabling PSremoting..."  -ForegroundColor Green
 Enable-PSRemoting -Force | Out-Null
