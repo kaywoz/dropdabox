@@ -263,6 +263,9 @@ Write-Host "*** qemu-img installed..."  -ForegroundColor Green
 choco install dotnetfx  -y | Out-Null
 Write-Host "*** dotnetfx installed..."  -ForegroundColor Green
 
+choco install openhardwaremonitor
+Write-Host "*** openhardwaremonitor installed..."  -ForegroundColor Green
+
 ##5.2 install and configure winget packages
 Write-Host "*** Microsoft Defender installed..."  -ForegroundColor Green
 winget install "Microsoft Defender" --source msstore --accept-package-agreements
@@ -272,6 +275,8 @@ winget install "Phone Link" --source msstore --accept-package-agreements
 
 Write-Host "*** Dell Display Manager installed..."  -ForegroundColor Green
 winget install "Dell Display Manager" --source winget --accept-package-agreements
+
+
 
 #________________
 
