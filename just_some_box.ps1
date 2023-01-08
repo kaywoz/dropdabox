@@ -276,6 +276,15 @@ winget install "Phone Link" --source msstore --accept-package-agreements
 Write-Host "*** Dell Display Manager installed..."  -ForegroundColor Green
 winget install "Dell Display Manager" --source winget --accept-package-agreements
 
+Write-Host "*** Windows Subsystem for Linux installed..."  -ForegroundColor Green
+winget install "Windows Subsystem for Linux" --source msstore --accept-package-agreements
+
+Write-Host "*** Ubuntu for WSL installed..."  -ForegroundColor Green
+winget install "Ubuntu for WSL installed" --source msstore --accept-package-agreements
+
+Write-Host "*** Kali for WSL installed..."  -ForegroundColor Green
+winget install "Kali for WSL installed" --source msstore --accept-package-agreements
+
 
 
 #________________
