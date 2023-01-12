@@ -173,6 +173,9 @@ Write-Host "*** veeam-agent installed..."  -ForegroundColor Green
 choco install zoom -y | Out-Null
 Write-Host "*** zoom installed..."  -ForegroundColor Green
 
+choco install git -y | Out-Null
+Write-Host "*** git installed..."  -ForegroundColor Green
+
 choco install visualstudio2019buildtools -y | Out-Null
 Write-Host "*** visualstudio2019buildtools installed..."  -ForegroundColor Green
 
